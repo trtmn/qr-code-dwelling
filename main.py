@@ -2,6 +2,7 @@ import os
 import qrcode
 from PIL import Image
 from io import BytesIO
+import requests
 
 def generate_qr_code(data, quality='H'):
     qr = qrcode.QRCode(
@@ -25,10 +26,23 @@ def calculate_max_size(img, percentage=45):
     # Calculate max size based on the given percentage of the QR code
     max_size = (img.size[0] * percentage // 100, img.size[1] * percentage // 100)
     return max_size
-def apply_logo(img, percentage=28):
-    logo_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo.png')
+
+def generate_and_save_qr_code(data, logo_path=None, quality='H'):
+    img = generate_qr_code(data, quality)
+    img = resize_qr_code(img)
+    img = apply_logo(img, logo_path)
+
+    byte_arr = BytesIO()
+    img.save(byte_arr, format='PNG')
+    byte_arr.seek(0)
+    return byte_arr
+
+def apply_logo(img, logo_path=None, percentage=25):
+    if logo_path is None:
+        logo_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo.png')
+
     if logo_path:
-        logo = Image.open(logo_path)
+        logo = check_if_logo_path_is_local_or_remote(logo_path)
         max_size = calculate_max_size(img, percentage)  # Use the new function here
         logo.thumbnail(max_size, Image.LANCZOS)  # Apply LANCZOS filter here
 
@@ -43,12 +57,13 @@ def apply_logo(img, percentage=28):
         img.alpha_composite(logo, position)
     return img
 
-def generate_and_save_qr_code(data, quality='H'):
-    img = generate_qr_code(data, quality)
-    img = resize_qr_code(img)
-    img = apply_logo(img)
 
-    byte_arr = BytesIO()
-    img.save(byte_arr, format='PNG')
-    byte_arr.seek(0)
-    return byte_arr
+def check_if_logo_path_is_local_or_remote(logo_path):
+    if logo_path.startswith(('http://', 'https://')):
+        # Download the logo from the web
+        response = requests.get(logo_path)
+        logo_path = BytesIO(response.content)
+        logo_image = Image.open(logo_path)
+        return logo_image
+    else:
+        return Image.open(logo_path)
