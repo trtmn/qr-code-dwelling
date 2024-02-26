@@ -15,10 +15,10 @@ def index():
     <!doctype html>
     <title>QR Code Generator</title>
     <form method=post enctype=multipart/form-data>
-      Data: <input type=text name=data><br>
+      URL to QR-Codify: <input type=text name=data value="https://thedwelling.church"><br>
       <input type=submit value=Generate>
     </form>
     '''
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
