@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            var data = document.getElementById('data').value;
+            var logo = document.getElementById('logo').value;
+            var url = '/' + '?data=' + encodeURIComponent(data);
+            if (logo) {
+                url += '&logo=' + encodeURIComponent(logo);
+            }
+            window.location.href = url;
+        }
+    </script>
+</head>
+<body>
+    <title>QR Code Generator</title>
+    <form onsubmit="submitForm(event)">
+        URL to QR-Codify: <input type="text" id="data" name="data" value="https://thedwelling.church"><br>
+        Logo: <input type="text" id="logo" name="logo" placeholder="Leave Blank for dwelling logo"><br>
+        <input type="submit" value="Generate">
+    </form>
+</body>
+</html>
