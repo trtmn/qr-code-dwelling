@@ -22,7 +22,7 @@ def resize_qr_code(img):
     img.info['dpi'] = (300, 300)
     return img
 
-def calculate_max_size(img, percentage=45):
+def calculate_max_size(img, percentage=None):
     # Calculate max size based on the given percentage of the QR code
     max_size = (img.size[0] * percentage // 100, img.size[1] * percentage // 100)
     return max_size
