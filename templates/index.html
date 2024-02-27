@@ -20,15 +20,25 @@
 </head>
 <body>
     <title>QR Code Generator</title>
+    <h1 class="text-center" style="margin-top: 25px;">QR Code Generator</h1>
     <!-- Use Bootstrap classes for the form -->
-<h1 class="text-center" style="margin-top: 25px;">QR Code Generator</h1>
     <div class="container">
         <form onsubmit="submitForm(event)" class="form-group">
-            <label for="data">URL to QR-Codify:</label>
-            <input type="text" id="data" name="data" value="https://thedwelling.church" class="form-control"><br>
-            <label for="logo">Logo:</label>
-            <input type="text" id="logo" name="logo" placeholder="Leave Blank for Dwelling Logo" class="form-control"><br>
-            <input type="submit" value="Generate" class="btn btn-primary">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <label for="data">URL to QR-Codify:</label>
+                    <input type="text" id="data" name="data" value="https://thedwelling.church" class="form-control">
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="logo">Logo:</label>
+                    <input type="text" id="logo" name="logo" placeholder="Leave Blank for Dwelling Logo" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="submit" value="Generate" class="btn btn-primary mt-3">
+                </div>
+            </div>
         </form>
     </div>
     <!-- Add Bootstrap JS and its dependencies -->
