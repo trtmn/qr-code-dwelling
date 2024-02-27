@@ -1,7 +1,10 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <script>
         function submitForm(event) {
             event.preventDefault();
@@ -17,10 +20,20 @@
 </head>
 <body>
     <title>QR Code Generator</title>
-    <form onsubmit="submitForm(event)">
-        URL to QR-Codify: <input type="text" id="data" name="data" value="https://thedwelling.church"><br>
-        Logo: <input type="text" id="logo" name="logo" placeholder="Leave Blank for dwelling logo"><br>
-        <input type="submit" value="Generate">
-    </form>
+    <!-- Use Bootstrap classes for the form -->
+<h1 class="text-center" style="margin-top: 25px;">QR Code Generator</h1>
+    <div class="container">
+        <form onsubmit="submitForm(event)" class="form-group">
+            <label for="data">URL to QR-Codify:</label>
+            <input type="text" id="data" name="data" value="https://thedwelling.church" class="form-control"><br>
+            <label for="logo">Logo:</label>
+            <input type="text" id="logo" name="logo" placeholder="Leave Blank for Dwelling Logo" class="form-control"><br>
+            <input type="submit" value="Generate" class="btn btn-primary">
+        </form>
+    </div>
+    <!-- Add Bootstrap JS and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
