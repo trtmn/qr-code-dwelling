@@ -7,15 +7,15 @@
 
     <script>
         function submitForm(event) {
-            event.preventDefault();
-            var data = document.getElementById('data').value;
-            var logo = document.getElementById('logo').value;
-            var url = '/' + '?data=' + encodeURIComponent(data);
-            if (logo) {
-                url += '&logo=' + encodeURIComponent(logo);
-            }
-            window.location.href = url;
+        event.preventDefault();
+        var data = document.getElementById('data').value;
+        var logo = document.getElementById('logo').value;  // this is the file path
+        var url = '/' + '?data=' + encodeURIComponent(data);
+        if (logo) {
+            url += '&logo=' + encodeURIComponent(logo);
         }
+        window.location.href = url;
+    }
     </script>
 </head>
 <body>
@@ -31,7 +31,11 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="logo">Logo:</label>
-                    <input type="text" id="logo" name="logo" placeholder="Leave Blank for Dwelling Logo" class="form-control">
+                    <select id="logo" name="logo" class="form-control">
+                        {% for icon in icons %}
+                            <option value="{{ icon[1] }}">{{ icon[0] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="row">

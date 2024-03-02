@@ -69,14 +69,14 @@ def generate_and_save_qr_code(data, logo_path=None, quality='H'):
     """
     img = generate_qr_code(data, quality)
     img = resize_qr_code(img)
-    img = apply_logo(img, logo_path)
-
+    if logo_path is not None:
+        img = apply_logo(img, logo_path)
     byte_arr = BytesIO()
     img.save(byte_arr, format='PNG')
     byte_arr.seek(0)
     return byte_arr
 
-def apply_logo(img, logo_path=None, percentage=25):
+def apply_logo(img, logo_path=None, percentage=45):
     """
     Apply a logo to the center of the given QR code image.
 
@@ -89,7 +89,8 @@ def apply_logo(img, logo_path=None, percentage=25):
     PIL.Image: The QR code image with the logo applied.
     """
     if logo_path is None:
-        logo_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo.png')
+        # logo_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo.png')
+        return img
 
     if logo_path:
         logo = check_if_logo_path_is_local_or_remote(logo_path)
@@ -128,3 +129,18 @@ def check_if_logo_path_is_local_or_remote(logo_path):
         return logo_image
     else:
         return Image.open(logo_path)
+
+
+def scan_icons_folder():
+    folder_path = 'icons'
+    icons = []
+    for filename in os.listdir(folder_path):
+        name, extension = os.path.splitext(filename)
+        if extension in ['.png', '.jpg', '.jpeg', '.gif']:  # add or remove file extensions as needed
+            human_readable_name = name.replace('_', ' ').replace('-', ' ').title()
+            file_path = os.path.join('.', folder_path, filename)
+            icons.append((human_readable_name, file_path))
+    return icons
+
+if __name__ == '__main__':
+    print(scan_icons_folder())
