@@ -76,7 +76,7 @@ def generate_and_save_qr_code(data, logo_path=None, quality='H'):
     byte_arr.seek(0)
     return byte_arr
 
-def apply_logo(img, logo_path=None, percentage=45):
+def apply_logo(img, logo_path=None, percentage=29):
     """
     Apply a logo to the center of the given QR code image.
 
