@@ -10,5 +10,8 @@ rm ./supervisord.log
 # Remove the supervisord pid file if it exists.
 rm ./supervisord.pid
 
+# Remove the app.log file if it exists
+rm ./app.log
+
 # Start the supervisord service.
 /usr/bin/supervisord

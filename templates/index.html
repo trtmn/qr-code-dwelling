@@ -32,6 +32,7 @@
                 <div class="col-12 col-md-6">
                     <label for="logo">Logo:</label>
                     <select id="logo" name="logo" class="form-control">
+                        <option value="">None</option>
                         {% for icon in icons %}
                             <option value="{{ icon[1] }}">{{ icon[0] }}</option>
                         {% endfor %}

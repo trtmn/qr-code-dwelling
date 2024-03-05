@@ -3,6 +3,11 @@ import qrcode
 from PIL import Image
 from io import BytesIO
 import requests
+import logging
+import time
+
+# Set up logging
+logging.basicConfig(filename='app.log',level=logging.INFO)
 
 def generate_qr_code(data, quality='H'):
     """
@@ -76,6 +81,9 @@ def generate_and_save_qr_code(data, logo_path=None, quality='H'):
     byte_arr.seek(0)
     return byte_arr
 
+
+
+
 def apply_logo(img, logo_path=None, percentage=29):
     """
     Apply a logo to the center of the given QR code image.
@@ -88,26 +96,29 @@ def apply_logo(img, logo_path=None, percentage=29):
     Returns:
     PIL.Image: The QR code image with the logo applied.
     """
+    start_time = time.time()  # Start the timer
+
     if logo_path is None:
-        # logo_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo.png')
         return img
 
     if logo_path:
         logo = check_if_logo_path_is_local_or_remote(logo_path)
-        max_size = calculate_max_size(img, percentage)  # Use the new function here
-        logo.thumbnail(max_size, Image.LANCZOS)  # Apply LANCZOS filter here
+        max_size = calculate_max_size(img, percentage)
+        logo.thumbnail(max_size, Image.LANCZOS)
 
-        # Calculate the position for the logo
         position = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
 
-        # Convert images to RGBA to ensure they have an alpha channel
         img = img.convert("RGBA")
         logo = logo.convert("RGBA")
 
-        # Perform alpha composite
         img.alpha_composite(logo, position)
-    return img
 
+    end_time = time.time()  # End the timer
+    elapsed_time = end_time - start_time  # Calculate elapsed time
+    logo_name = os.path.basename(logo_path)  # Get the logo name
+    logging.info(f" {logo_name} took {elapsed_time} seconds.")  # Log the elapsed time
+
+    return img
 def check_if_logo_path_is_local_or_remote(logo_path):
     """
     Check if the given logo path is a local file path or a URL.
@@ -140,6 +151,7 @@ def scan_icons_folder():
             human_readable_name = name.replace('_', ' ').replace('-', ' ').title()
             file_path = os.path.join('.', folder_path, filename)
             icons.append((human_readable_name, file_path))
+    icons = sorted(icons, key=lambda x: x[0])  # Sort icons by human-readable name
     return icons
 
 if __name__ == '__main__':
