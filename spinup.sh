@@ -13,5 +13,8 @@ rm ./supervisord.pid
 # Remove the app.log file if it exists
 rm ./app.log
 
+# Apply the nginx configuration.
+envsubst '$SERVER_NAME' < ./nginx.conf.template > /etc/nginx/conf.d/nginx.conf
+
 # Start the supervisord service.
 /usr/bin/supervisord
