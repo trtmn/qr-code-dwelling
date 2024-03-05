@@ -12,7 +12,6 @@ RUN ./build.sh
 
 
 # Copy the default nginx.conf and supervisord configuration
-COPY nginx.conf /etc/nginx/conf.d/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Make port 80 available to the world outside this container
