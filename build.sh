@@ -2,7 +2,7 @@
 
 # Update the APT package list and install necessary dependencies.
 # curl, nginx, git, supervisor, gpg, and sudo are installed.
-apt-get update && apt-get install -y curl nginx git supervisor gpg cron nano
+apt-get update && apt-get install -y curl nginx git supervisor gpg gettext
 
 ./1password_cli.sh
 
