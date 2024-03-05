@@ -4,7 +4,8 @@
 # curl, nginx, git, supervisor, gpg, and sudo are installed.
 apt-get update && apt-get install -y curl nginx git supervisor gpg gettext
 
-./1password_cli.sh
+# Install the 1Password CLI.
+#./1password_cli.sh
 
 # Install Python dependencies.
 # The Python dependencies are installed from the requirements.txt file.
