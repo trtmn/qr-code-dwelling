@@ -32,7 +32,9 @@ pip install --no-cache-dir -r requirements.txt
 #check the current architecture and download the appropriate package
 if [ $(uname -m) = "x86_64" ]; then
   curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+fi
 if [ $(uname -m) = "arm64" ]; then
   curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+fi
 # The downloaded package is installed using dpkg.
 dpkg -i cloudflared.deb
