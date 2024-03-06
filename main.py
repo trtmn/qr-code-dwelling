@@ -70,7 +70,7 @@ def shorten_url(url):
         return url
 
     #check if the url is already shortened
-    if url.startswith(('https://trtmn.io/', 'https://go.trtmn.io/')):
+    if url.startswith(('https://trtmn.io/', 'https://go.trtmn.io/', 'https://thedwelling.church', 'https://www.thedwelling.church')):
         return url
 
     #check if it's an actual url
