@@ -61,10 +61,16 @@ def calculate_max_size(img, percentage=None):
     return max_size
 
 def shorten_url(url):
-    
-    #check if the url is already shortened
-    if url.startswith('https://trtmn.io/' or 'https://go.trtmn.io/'):
+    #TODO: allow for custom shortening services - using environment variables
+    #For now, just check the environment of shorten True or False
+    shorten = os.environ.get('shorten', 'False')
+    if shorten.lower() != 'true':
         return url
+
+    #check if the url is already shortened
+    if url.startswith(('https://trtmn.io/', 'https://go.trtmn.io/')):
+        return url
+
     #check if it's an actual url
     if not url.startswith('http'):
         return url
