@@ -1,10 +1,15 @@
 # This script is used to set up a cloudflared service and clean up supervisord logs and pid files.
 
-
-op inject --force -i ./external_tools/start_tunnel.sh -o /tmp/start_tunnel_injected.sh
+#if DEBUG
+if [ "$DEBUG" != "true" ]; then
+  op inject --force -i ./external_tools/start_tunnel.sh -o /tmp/start_tunnel_injected.sh
+  chmod u+x /tmp/start_tunnel_injected.sh
+  echo "Starting cloudflared tunnel"
+  /tmp/start_tunnel_injected.sh
+fi
 
 # Install the cloudflared tunnel.
-chmod u+x /tmp/start_tunnel_injected.sh && /tmp/start_tunnel_injected.sh
+
 
 #generate the nginx configuration file from the template using 1password CLI
 op inject -i ./nginx.conf.template -o /etc/nginx/conf.d/nginx.conf
