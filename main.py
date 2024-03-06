@@ -1,5 +1,7 @@
 import os
 import qrcode
+from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
+from qrcode.image.styledpil import StyledPilImage
 from PIL import Image
 from io import BytesIO
 import requests
@@ -23,13 +25,13 @@ def generate_qr_code(data, quality='H'):
     qr = qrcode.QRCode(
         version=1,
         error_correction=getattr(qrcode.constants, f'ERROR_CORRECT_{quality}'),
-        box_size=10,
+        box_size=100,
         border=4,
     )
     qr.add_data(data)
     qr.make(fit=True)
 
-    img = qr.make_image(fill='black', back_color='white')
+    img = qr.make_image(fill='black', back_color='white',image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer())
     return img
 
 def resize_qr_code(img):
