@@ -17,4 +17,4 @@ rm ./app.log
 envsubst '$SERVER_NAME' < ./nginx.conf.template > /etc/nginx/conf.d/nginx.conf
 
 # Start the supervisord service.
-/usr/bin/supervisord
+supervisord -c /etc/supervisor/conf.d/supervisord.conf
