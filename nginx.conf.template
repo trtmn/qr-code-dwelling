@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name $SERVER_NAME;
+    server_name {{ op://Automation Secrets/QR_Maker/SERVER_NAME }};
     server_name 127.0.0.1;
     server_name localhost;
     location / {
