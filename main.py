@@ -73,6 +73,8 @@ def shorten_url(url):
     #check if the url is already shortened
     if url.startswith(('https://trtmn.io/', 'https://go.trtmn.io/')):
         logging.info(f"{url} is already shortened, not shortening again.")
+    #if the url is from thedwelling.church, don't shorten it
+    if url.startswith(('https://thedwelling.church', 'https://www.thedwelling.church')):
         return url
 
     #check if it's an actual url
