@@ -1,54 +1,57 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Add Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
 
-    <script>
-        function submitForm(event) {
-        event.preventDefault();
-        var data = document.getElementById('data').value;
-        var logo = document.getElementById('logo').value;  // this is the file path
-        var url = '/' + '?data=' + encodeURIComponent(data);
-        if (logo) {
-            url += '&logo=' + encodeURIComponent(logo);
-        }
-        window.location.href = url;
-    }
-    </script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Bootstrap Select CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
 </head>
 <body>
-    <title>QR Code Generator</title>
-    <h1 class="text-center" style="margin-top: 25px;">QR Code Generator</h1>
-    <!-- Use Bootstrap classes for the form -->
     <div class="container">
-        <form onsubmit="submitForm(event)" class="form-group">
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <label for="data">URL to QR-Codify:</label>
-                    <input type="text" id="data" name="data" value="https://" class="form-control">
-                </div>
-                <div class="col-12 col-md-6">
-                    <label for="logo">Logo:</label>
-                    <select id="logo" name="logo" class="form-control">
-                        <option value="">None</option>
-                        {% for icon in icons %}
-                            <option value="{{ icon[1] }}">{{ icon[0] }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+        <h1>QR Code Generator</h1>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="text" id="data" name="data" class="form-control">
             </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <input type="submit" value="Generate" class="btn btn-primary mt-3">
-                </div>
+
+            <div class="form-group">
+                <label for="logo">Logo:</label>
+               <select id="logo" name="logo" class="form-control selectpicker">
+                    <option value="">None</option>
+                    {% for icon in icons %}
+                        <option value="{{ url_for('static', filename=icon[1]) }}" data-content="<img src='{{ url_for('static', filename=icon[1]) }}' width='50' height='50'> {{ icon[0] }}">{{ icon[0] }}</option>
+                    {% endfor %}
+               </select>
             </div>
+
+            <button type="submit" class="btn btn-primary">Generate QR Code</button>
         </form>
     </div>
-    <!-- Add Bootstrap JS and its dependencies -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Select JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    <!-- Initialize the selectpicker -->
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 </body>
 </html>

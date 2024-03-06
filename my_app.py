@@ -1,5 +1,5 @@
 from flask import Flask, request, send_file, render_template
-
+import urllib
 import main
 from main import generate_qr_code, resize_qr_code, apply_logo, generate_and_save_qr_code
 
@@ -11,10 +11,10 @@ def index():
         data = request.form['data']
         #URL encode the data
         data = urllib.parse.quote_plus(data)
+        logo = request.form['logo']
     else:
         data = request.args.get('data', default=None, type=str)
-
-    logo = request.args.get('logo', default=None, type=str)
+        logo = request.args.get('logo', default=None, type=str)
 
     if data is not None:
         qr_code_stream = generate_and_save_qr_code(data, logo)

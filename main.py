@@ -10,16 +10,6 @@ import time
 logging.basicConfig(filename='app.log',level=logging.INFO)
 
 def generate_qr_code(data, quality='H'):
-    """
-    Generate a QR code image from the given data.
-
-    Parameters:
-    data (str): The data to be encoded in the QR code.
-    quality (str): The error correction level for the QR code. Default is 'H'.
-
-    Returns:
-    PIL.Image: The generated QR code as a PIL Image object.
-    """
     qr = qrcode.QRCode(
         version=1,
         error_correction=getattr(qrcode.constants, f'ERROR_CORRECT_{quality}'),
@@ -33,45 +23,15 @@ def generate_qr_code(data, quality='H'):
     return img
 
 def resize_qr_code(img):
-    """
-    Resize the given QR code image to 1000x1000 pixels and set the DPI to 300.
-
-    Parameters:
-    img (PIL.Image): The QR code image to be resized.
-
-    Returns:
-    PIL.Image: The resized QR code image.
-    """
     img = img.resize((1000, 1000))
     img.info['dpi'] = (300, 300)
     return img
 
 def calculate_max_size(img, percentage=None):
-    """
-    Calculate the maximum size for the logo based on a percentage of the QR code size.
-
-    Parameters:
-    img (PIL.Image): The QR code image.
-    percentage (int): The percentage of the QR code size to use for the logo size.
-
-    Returns:
-    tuple: The maximum size for the logo as a tuple of (width, height).
-    """
     max_size = (img.size[0] * percentage // 100, img.size[1] * percentage // 100)
     return max_size
 
 def generate_and_save_qr_code(data, logo_path=None, quality='H'):
-    """
-    Generate a QR code from the given data, apply a logo, and save it to a BytesIO object.
-
-    Parameters:
-    data (str): The data to be encoded in the QR code.
-    logo_path (str): The path to the logo image file. If the path is a URL, the logo will be downloaded.
-    quality (str): The error correction level for the QR code. Default is 'H'.
-
-    Returns:
-    io.BytesIO: The QR code image saved to a BytesIO object.
-    """
     img = generate_qr_code(data, quality)
     img = resize_qr_code(img)
     if logo_path is not None:
@@ -81,22 +41,8 @@ def generate_and_save_qr_code(data, logo_path=None, quality='H'):
     byte_arr.seek(0)
     return byte_arr
 
-
-
-
 def apply_logo(img, logo_path=None, percentage=29):
-    """
-    Apply a logo to the center of the given QR code image.
-
-    Parameters:
-    img (PIL.Image): The QR code image.
-    logo_path (str): The path to the logo image file. If the path is a URL, the logo will be downloaded.
-    percentage (int): The size of the logo as a percentage of the QR code size. Default is 25.
-
-    Returns:
-    PIL.Image: The QR code image with the logo applied.
-    """
-    start_time = time.time()  # Start the timer
+    start_time = time.time()
 
     if logo_path is None:
         return img
@@ -113,27 +59,15 @@ def apply_logo(img, logo_path=None, percentage=29):
 
         img.alpha_composite(logo, position)
 
-    end_time = time.time()  # End the timer
-    elapsed_time = end_time - start_time  # Calculate elapsed time
-    logo_name = os.path.basename(logo_path)  # Get the logo name
-    logging.info(f" {logo_name} took {elapsed_time} seconds.")  # Log the elapsed time
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    logo_name = os.path.basename(logo_path)
+    logging.info(f" {logo_name} took {elapsed_time} seconds.")
 
     return img
+
 def check_if_logo_path_is_local_or_remote(logo_path):
-    """
-    Check if the given logo path is a local file path or a URL.
-
-    If the path is a URL, download the logo and return it as a PIL Image object.
-    If the path is a local file path, open the file and return it as a PIL Image object.
-
-    Parameters:
-    logo_path (str): The path to the logo image file.
-
-    Returns:
-    PIL.Image: The logo as a PIL Image object.
-    """
     if logo_path.startswith(('http://', 'https://')):
-        # Download the logo from the web
         response = requests.get(logo_path)
         logo_path = BytesIO(response.content)
         logo_image = Image.open(logo_path)
@@ -141,17 +75,16 @@ def check_if_logo_path_is_local_or_remote(logo_path):
     else:
         return Image.open(logo_path)
 
-
 def scan_icons_folder():
     folder_path = 'icons'
     icons = []
     for filename in os.listdir(folder_path):
         name, extension = os.path.splitext(filename)
-        if extension in ['.png', '.jpg', '.jpeg', '.gif']:  # add or remove file extensions as needed
+        if extension in ['.png', '.jpg', '.jpeg', '.gif']:
             human_readable_name = name.replace('_', ' ').replace('-', ' ').title()
-            file_path = os.path.join('.', folder_path, filename)
+            file_path = os.path.join('icons', filename)
             icons.append((human_readable_name, file_path))
-    icons = sorted(icons, key=lambda x: x[0])  # Sort icons by human-readable name
+    icons = sorted(icons, key=lambda x: x[0])
     return icons
 
 if __name__ == '__main__':
