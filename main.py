@@ -60,6 +60,33 @@ def calculate_max_size(img, percentage=None):
     max_size = (img.size[0] * percentage // 100, img.size[1] * percentage // 100)
     return max_size
 
+def shorten_url(url):
+    
+    #check if the url is already shortened
+    if url.startswith('https://trtmn.io/' or 'https://go.trtmn.io/'):
+        return url
+    #check if it's an actual url
+    if not url.startswith('http'):
+        return url
+
+    #check the length of the url, if it is greater than the standard shortened length, shorten it.
+    if len(url) > len('https://trtmn.io/aaa'):
+        #get the api key from the environment
+        yourls_key = os.environ.get('yourls_key')
+
+        #create the post request
+        post_url = f'https://go.trtmn.io/yourls-api.php?signature={yourls_key}&action=shorturl&format=json&url={url}'
+        response = requests.post(post_url)
+
+        #log the response
+        logging.info(f"{response.json()}")
+        logging.info(f"Shortening {url} to {response.json()['shorturl']}")
+        return response.json()['shorturl']
+    else:
+        return url
+
+
+
 def generate_and_save_qr_code(data, logo_path=None, quality='H'):
     """
     Generate a QR code from the given data, apply a logo, and save it to a BytesIO object.
@@ -72,6 +99,7 @@ def generate_and_save_qr_code(data, logo_path=None, quality='H'):
     Returns:
     io.BytesIO: The QR code image saved to a BytesIO object.
     """
+    data = shorten_url(data)
     img = generate_qr_code(data, quality)
     img = resize_qr_code(img)
     if logo_path is not None:
