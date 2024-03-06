@@ -65,28 +65,33 @@ def shorten_url(url):
     #For now, just check the environment of shorten True or False
     shorten = os.environ.get('shorten', 'False')
     if shorten.lower() != 'true':
+        logging.info(f"Shortening is set to False, not shortening {url}")
         return url
 
     #check if the url is already shortened
     if url.startswith(('https://trtmn.io/', 'https://go.trtmn.io/')):
+        logging.info(f"{url} is already shortened, not shortening again.")
         return url
 
     #check if it's an actual url
     if not url.startswith('http'):
+        logging.info(f"{url} is not a valid url, not shortening.")
         return url
 
     #check the length of the url, if it is greater than the standard shortened length, shorten it.
     if len(url) > len('https://trtmn.io/aaa'):
         #get the api key from the environment
-        yourls_key = os.environ.get('yourls_key')
+        logging.info(f"Shortening {url} using the yourls service.")
 
         #create the post request
+        yourls_key = os.environ.get('yourls_key')
         post_url = f'https://go.trtmn.io/yourls-api.php?signature={yourls_key}&action=shorturl&format=json&url={url}'
         response = requests.post(post_url)
 
         #log the response
         logging.info(f"{response.json()}")
-        logging.info(f"Shortening {url} to {response.json()['shorturl']}")
+        short_url = response.json()['shorturl']
+        logging.info(f"Shortening {url} to {short_url}")
         return response.json()['shorturl']
     else:
         return url
