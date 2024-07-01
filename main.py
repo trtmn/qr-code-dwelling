@@ -73,6 +73,7 @@ def shorten_url(url):
     #check if the url is already shortened
     if url.startswith(('https://trtmn.io/', 'https://go.trtmn.io/')):
         logging.info(f"{url} is already shortened, not shortening again.")
+        return url
     #if the url is from thedwelling.church, don't shorten it
     if url.startswith(('https://thedwelling.church', 'https://www.thedwelling.church')):
         return url
@@ -196,6 +197,8 @@ def scan_icons_folder():
             icons.append((human_readable_name, file_path))
     icons = sorted(icons, key=lambda x: x[0])  # Sort icons by human-readable name
     return icons
+
+
 
 if __name__ == '__main__':
     print(scan_icons_folder())
