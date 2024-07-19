@@ -195,6 +195,7 @@ def scan_icons_folder():
             human_readable_name = name.replace('_', ' ').replace('-', ' ').title()
             file_path = os.path.join('.', folder_path, filename)
             icons.append((human_readable_name, file_path))
+    icons.append(('Live Gravatar', 'https://www.gravatar.com/avatar/1db851ae010e1677096141d040d6b9eb094a733139576275d1bb4f88b60ebe2c.png?s=800'))
     icons = sorted(icons, key=lambda x: x[0])  # Sort icons by human-readable name
     return icons
 
