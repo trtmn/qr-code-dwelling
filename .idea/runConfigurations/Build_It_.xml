@@ -1,0 +1,37 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="🛠️Build It " type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="imageTag" value="qr-maker" />
+        <option name="buildOnly" value="true" />
+        <option name="containerName" value="" />
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="tunnel_key" />
+              <option name="value" value="eyJhIjoiZmE4M2U2OGE1NzkxZDUyMjMxNGVkMjkyODEyMWNkYTgiLCJ0IjoiMTBlYWQ5YjQtMjMzZC00NTY5LWI2MDgtYTQ5Y2Y5MDc1NGE4IiwicyI6Ik4yWmlNemM0TkRrdE9UWTRZUzAwWmpFMExUZ3paR010Tm1VeU1UYzFNMlV4WXpReCJ9" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="80" />
+              <option name="hostPort" value="80" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+        <option name="sourceFilePath" value="Dockerfile" />
+        <option name="volumeBindings">
+          <list>
+            <DockerVolumeBindingImpl>
+              <option name="containerPath" value="/app" />
+              <option name="hostPath" value="$PROJECT_DIR$/" />
+            </DockerVolumeBindingImpl>
+          </list>
+        </option>
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

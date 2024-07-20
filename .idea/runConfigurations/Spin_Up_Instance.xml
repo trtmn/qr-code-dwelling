@@ -1,0 +1,35 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="💫Spin Up Instance" type="docker-deploy" factoryName="docker-image" singleton="false" server-name="Docker">
+    <deployment type="docker-image">
+      <settings>
+        <option name="imageTag" value="qr-maker:latest" />
+        <option name="containerName" value="" />
+        <option name="envVars">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="OP_SERVICE_ACCOUNT_TOKEN" />
+              <option name="value" value="ops_eyJzaWduSW5BZGRyZXNzIjoibXkuMXBhc3N3b3JkLmNvbSIsInVzZXJBdXRoIjp7Im1ldGhvZCI6IlNSUGctNDA5NiIsImFsZyI6IlBCRVMyZy1IUzI1NiIsIml0ZXJhdGlvbnMiOjY1MDAwMCwic2FsdCI6IkdwODFxbE9jRTk3NklfZkdGUkhSamcifSwiZW1haWwiOiIzb2s3Nndwem1kaDcyQDFwYXNzd29yZHNlcnZpY2VhY2NvdW50cy5jb20iLCJzcnBYIjoiZTFkODVlZDM2Y2FjZmExOTc0ZjQ0YTU2YTE1NGIzNzhmMTFjYWNmZTVmZTE2ZTc1MDUzNmM0YmVmODVmMjAxMCIsIm11ayI6eyJhbGciOiJBMjU2R0NNIiwiZXh0Ijp0cnVlLCJrIjoiQTJ3dFJBSjRYNl9HVXJpNjVfQVliV1NqblV3eFhMWVFyZlZsb211UkgtYyIsImtleV9vcHMiOlsiZGVjcnlwdCIsImVuY3J5cHQiXSwia3R5Ijoib2N0Iiwia2lkIjoibXAifSwic2VjcmV0S2V5IjoiQTMtM1pFSEJRLUdTTURXRS1GN0RUNi03QTZNSi1YRFRBOC1aSEc1RSIsInRocm90dGxlU2VjcmV0Ijp7InNlZWQiOiI3ZjNlYTQ1ODgzZmYzMmZmYTFmNTcxZWY3NjhjZTlkMGY4MDdjMzA5YWQwNzRhY2Y2ZGU3ZDUxNTVhZmU5NDIzIiwidXVpZCI6IlFDU0Y2NEdJN1ZDWjdJUDNXV09ESDU3UE1BIn0sImRldmljZVV1aWQiOiI0MmJka2tpZ3ducmI3NHV1eW5qcnV0cGF5ZSJ9" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="80" />
+              <option name="hostPort" value="1337" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+        <option name="volumeBindings">
+          <list>
+            <DockerVolumeBindingImpl>
+              <option name="containerPath" value="/app" />
+              <option name="hostPath" value="$PROJECT_DIR$/" />
+            </DockerVolumeBindingImpl>
+          </list>
+        </option>
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
