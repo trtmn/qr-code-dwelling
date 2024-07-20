@@ -163,6 +163,32 @@ def apply_logo(img, logo_path=None, percentage=29):
     logging.info(f" {logo_name} took {elapsed_time} seconds.")  # Log the elapsed time
 
     return img
+
+from PIL import Image
+
+def apply_frame_to_qr_code(img, frame_path):
+    """
+    Apply a frame to the given QR code image.
+
+    Parameters:
+    img (PIL.Image): The QR code image.
+    frame_path (str): The path to the frame image file.
+
+    Returns:
+    PIL.Image: The QR code image with the frame applied.
+    """
+    frame = Image.open(frame_path)
+    frame = frame.convert("RGBA")
+
+    img = img.resize((918, 918))  # Resize the QR code
+    img = img.convert("RGBA")
+
+    new_img = Image.new('RGBA', frame.size)
+    new_img.paste(frame, (0, 0))  # Paste the frame onto the new image
+    new_img.paste(img, (61, 61))  # Paste the QR code onto the new image
+
+    return new_img
+
 def check_if_logo_path_is_local_or_remote(logo_path):
     """
     Check if the given logo path is a local file path or a URL.
@@ -185,6 +211,27 @@ def check_if_logo_path_is_local_or_remote(logo_path):
     else:
         return Image.open(logo_path)
 
+def test_apply_frame_to_qr_code():
+    # Generate a QR code
+    data = "https://github.com/trtmn"
+    qr_code_img = generate_qr_code(data)
+
+    # Specify the path to the logo image
+    logo_path = "./icons/Matt Gravatar.png"  # Replace with your actual logo image path
+
+    # Apply the logo to the QR code
+    logo_applied_qr_code_img = apply_logo(qr_code_img, logo_path)
+
+    # Specify the path to the frame image
+    frame_path = "./icons/scan_me.png"  # Replace with your actual frame image path
+
+    # Apply the frame to the logo-applied QR code
+    framed_qr_code_img = apply_frame_to_qr_code(logo_applied_qr_code_img, frame_path)
+
+    # Save the resulting image to a file
+    framed_qr_code_img.save("framed_qr_code.png")
+# Call the test function
+
 
 def scan_icons_folder():
     folder_path = 'icons'
@@ -202,4 +249,4 @@ def scan_icons_folder():
 
 
 if __name__ == '__main__':
-    print(scan_icons_folder())
+    test_apply_frame_to_qr_code()
