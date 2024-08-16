@@ -1,0 +1,18 @@
+# ignored options for 'qr-maker'
+# -P
+name: qr-maker
+services:
+    qr-maker:
+        volumes:
+            - .:/app
+        environment:
+            - OP_SERVICE_ACCOUNT_TOKEN=${OP_SERVICE_ACCOUNT_TOKEN}
+#        env_file:
+#            -   prod.env
+        pull_policy: missing
+        network_mode: "bridge"
+        image: qr-maker:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
