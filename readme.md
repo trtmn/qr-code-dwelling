@@ -14,4 +14,5 @@ Deploying:
 2. Ensure you have Docker installed
 3. cd to the project directory
 4. Run `docker build -t qr-maker .`
-5. docker run -p 80:80 -v $(pwd):/app --env tunnel_key=<your key from cloudflare> --env SERVER_NAME=<full hostname for named tunnel on cloudflare> qr-maker:latest 
+5. docker run -p 80:80 -v $(pwd):/app --env tunnel_key={your key from cloudflare} --env SERVER_NAME={full hostname for named tunnel on cloudflare} qr-maker:latest
+6. Or "docker-compose up .
