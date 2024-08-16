@@ -187,6 +187,22 @@ def check_if_logo_path_is_local_or_remote(logo_path):
 
 
 def scan_icons_folder():
+    """
+    Scans the 'icons' folder for image files and adds a predefined web image.
+
+    This function searches through a specified folder ('icons') for files with
+    image extensions (.png, .jpg, .jpeg, .gif). For each found image, it generates
+    a human-readable name by replacing underscores and dashes with spaces and
+    capitalizing the words. It then constructs a list of tuples, each containing
+    the human-readable name and the file path of an image. Additionally, a predefined
+    web image is added to this list. Finally, the list is sorted by the human-readable
+    names of the images and returned.
+
+    Returns:
+        list of tuple: A sorted list of tuples, each containing the human-readable
+                       name and the file path of an image, including a predefined
+                       web image.
+    """
     folder_path = 'icons'
     icons = []
     for filename in os.listdir(folder_path):
@@ -195,6 +211,9 @@ def scan_icons_folder():
             human_readable_name = name.replace('_', ' ').replace('-', ' ').title()
             file_path = os.path.join('.', folder_path, filename)
             icons.append((human_readable_name, file_path))
+    # Add a gravatar option
+    #TODO: Move this to a list of predefined remote images
+    icons.append((r"Fishy's Gravatar", "https://gravatar.com/avatar/2e8f5f13323d9221726cf865f3488ddb8bc2811ef5706b3c1c78afcf30605ce6.png?s=800"))
     icons = sorted(icons, key=lambda x: x[0])  # Sort icons by human-readable name
     return icons
 
