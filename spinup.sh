@@ -8,26 +8,20 @@ if [ "$DEBUG" != "true" ]; then
   /tmp/start_tunnel_injected.sh
 fi
 
-# Install the cloudflared tunnel.
-
-
 #generate the nginx configuration file from the template using 1password CLI
 op inject -i ./nginx.conf.template -o /etc/nginx/conf.d/nginx.conf
-
 # Export the shorten environment variable to the app.
-#op run $(export SHORTEN="op://Automation Secrets/QR_Maker/shorten")
 export shorten="$(op read "op://Automation Secrets/QR_Maker/shorten")"
-
 export yourls_key="$(op read "op://Automation Secrets/QR_Maker/yourls_key")"
-
 # Remove the supervisord log file if it exists.
 rm ./supervisord.log
-
 # Remove the supervisord pid file if it exists.
 rm ./supervisord.pid
-
 # Remove the app.log file if it exists
 rm ./app.log
-
+# Wait 10 seconds for the cloudflared tunnel to start.
+#echo "Waiting for the cloudflared tunnel to start..."
+#sleep 10
 # Start the supervisord service.
-supervisord -c /etc/supervisor/conf.d/supervisord.conf
+pwd
+supervisord -c ./supervisord.conf

@@ -1,3 +1,11 @@
+# Ignore log files
 *.log
+
+# Ignore process ID files
 *.pid
+
+# Ignore compiled Python files
 *.pyc
+
+# Ignore environment files
+*.env

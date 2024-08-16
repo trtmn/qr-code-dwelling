@@ -13,4 +13,3 @@ apt-get update && apt-get install -y curl nginx git gpg gettext
 # Install Python dependencies.
 # The Python dependencies are installed from the requirements.txt file.
 pip install --no-cache-dir -r requirements.txt
-

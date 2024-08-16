@@ -21,6 +21,7 @@
             </DockerPortBindingImpl>
           </list>
         </option>
+        <option name="showCommandPreview" value="true" />
         <option name="sourceFilePath" value="Dockerfile" />
         <option name="volumeBindings">
           <list>
