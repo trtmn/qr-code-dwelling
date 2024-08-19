@@ -8,7 +8,7 @@ WORKDIR /app
 ADD . /app
 
 # Install APT packages and Other Dependencies
-RUN ./build.sh
+RUN ./install_tools.sh
 
 
 # Copy the default nginx.conf and supervisord configuration
@@ -16,6 +16,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
+
 
 # Run spinup script
 CMD ./spinup.sh
